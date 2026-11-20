@@ -1,3 +1,16 @@
 spring:
   application:
-    name: project
+    name: product-api
+
+  datasource:
+    url: jdbc:postgresql://localhost:5433/product_db
+    username: ${DB_USERNAME:product_user}
+    password: ${DB_PASSWORD:local_dev_password}
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+server:
+  port: 8081
