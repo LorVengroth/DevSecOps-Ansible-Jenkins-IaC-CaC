@@ -1,7 +1,6 @@
 import { render, screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { beforeEach, describe, expect, it, vi } from "vitest";
-
+import {  afterEach ,beforeEach, describe, expect, it, vi } from "vitest";
 import ProductList from "./ProductList";
 import type { Product } from "@/types/product";
 import { deleteProduct } from "@/features/serviices/product.service";
