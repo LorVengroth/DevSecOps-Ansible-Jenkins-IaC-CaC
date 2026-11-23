@@ -12,7 +12,7 @@ pipeline {
     stages {
         stage('Git Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/LorVengroth/DevSecOps-Ansible-Jenkins-IaC-CaC.git'
+                git branch: 'master', url: 'https://github.com/LorVengroth/DevSecOps-Ansible-Jenkins-IaC-CaC.git'
             }
         }
 
