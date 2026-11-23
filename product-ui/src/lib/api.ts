@@ -1,6 +1,6 @@
-export const API_URL = "http://localhost:8081";
+export const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://34.87.91.193:8081";
 
-export const SERVER_API_URL = "http://localhost:8081";
+export const SERVER_API_URL = process.env.NEXT_PUBLIC_API_URL || "http://34.87.91.193:8081";
 
 export async function handleResponse<T>(
   response: Response
