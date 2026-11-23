@@ -39,8 +39,8 @@ pipeline {
                             --rm \
                             -v "$PWD/product-api":/app \
                             -w /app \
-                            maven:3.9-eclipse-temurin-21 \
-                            mvn test
+                            gradle:8.5-jdk21 \
+                            gradle test
                     '''
                 }
             }
