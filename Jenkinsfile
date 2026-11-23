@@ -58,15 +58,32 @@ pipeline {
         stage('Docker Container') {
             steps {
                 sh '''
-                   
-                    docker stop product-ui-container product-api-container || true
-                    docker rm product-ui-container product-api-container || true
+                  
+                    docker stop product-ui-container product-api-container product-db-container || true
+                    docker rm product-ui-container product-api-container product-db-container || true
 
                    
-                    docker run -d --name product-api-container -p 8081:8080 product-api:latest
+                    docker run -d \
+                        --name product-db-container \
+                        --network host \
+                        -e POSTGRES_DB=product_db \
+                        -e POSTGRES_USER=product_user \
+                        -e POSTGRES_PASSWORD=local_dev_password \
+                        postgres:16-alpine -p 5433
 
-                
-                    docker run -d --name product-ui-container -p 3000:3000 product-ui:latest
+                    # Wait 5 seconds for PostgreSQL to be ready
+                    sleep 5
+
+                    
+                    docker run -d \
+                        --name product-api-container \
+                        --network host \
+                        product-api:latest
+
+                    docker run -d \
+                        --name product-ui-container \
+                        --network host \
+                        product-ui:latest
                 '''
             }
         }
