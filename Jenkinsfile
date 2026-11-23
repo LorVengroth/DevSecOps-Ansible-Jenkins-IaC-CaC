@@ -66,7 +66,7 @@ pipeline {
                     docker run -d --name product-api-container -p 8081:8080 product-api:latest
 
                 
-                    docker run -d --name product-ui-container -p 3000:80 product-ui:latest
+                    docker run -d --name product-ui-container -p 3000:3000 product-ui:latest
                 '''
             }
         }
