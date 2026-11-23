@@ -23,7 +23,7 @@ pipeline {
             steps {
                 script {
                     echo 'Running tests for Product UI and Product API...'
-                 
+
                     sh '''
                         docker run \
                             --rm \
@@ -33,7 +33,6 @@ pipeline {
                             sh -c "npm install && npm test --if-present"
                     '''
 
-            
                     sh '''
                         docker run \
                             --rm \
@@ -51,6 +50,7 @@ pipeline {
                 sh '''
                     docker build -t product-ui:latest ./product-ui
                     docker build -t product-api:latest ./product-api
+                    docker build -t product-nginx:latest ./nginx
                 '''
             }
         }
@@ -58,11 +58,9 @@ pipeline {
         stage('Docker Container') {
             steps {
                 sh '''
-                  
-                    docker stop product-ui-container product-api-container product-db-container || true
-                    docker rm product-ui-container product-api-container product-db-container || true
+                    docker stop product-nginx-container product-ui-container product-api-container product-db-container || true
+                    docker rm product-nginx-container product-ui-container product-api-container product-db-container || true
 
-                   
                     docker run -d \
                         --name product-db-container \
                         --network host \
@@ -74,7 +72,6 @@ pipeline {
                     # Wait 5 seconds for PostgreSQL to be ready
                     sleep 5
 
-                    
                     docker run -d \
                         --name product-api-container \
                         --network host \
@@ -84,7 +81,7 @@ pipeline {
                         --name product-ui-container \
                         --network host \
                         product-ui:latest
-                    
+
                     # nginx port:80
                     docker run -d \
                         --name product-nginx-container \
