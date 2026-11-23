@@ -84,6 +84,11 @@ pipeline {
                         --name product-ui-container \
                         --network host \
                         product-ui:latest
+                    
+                    docker run -d \
+                        --name product-nginx-container \
+                        --network host \
+                        product-nginx:latest
                 '''
             }
         }
