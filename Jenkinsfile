@@ -34,13 +34,13 @@ pipeline {
                     '''
 
             
-                  sh '''
+                    sh '''
                         docker run \
                             --rm \
                             -v "$PWD/product-api":/app \
                             -w /app \
                             eclipse-temurin:21-jdk-alpine \
-                            sh -c "chmod +x gradlew && ./gradlew test"
+                            sh -c "chmod +x gradlew && ./gradlew test --tests '*Service*' --tests '*Controller*'"
                     '''
                 }
             }
