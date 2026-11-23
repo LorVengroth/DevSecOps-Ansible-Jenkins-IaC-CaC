@@ -85,6 +85,7 @@ pipeline {
                         --network host \
                         product-ui:latest
                     
+                    # nginx port:80
                     docker run -d \
                         --name product-nginx-container \
                         --network host \
